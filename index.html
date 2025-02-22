@@ -589,7 +589,6 @@ tarot.handleReservation = function(date) {
   });
 };
 
-// Fungsi untuk menampilkan daftar semua reservasi (untuk admin atau tujuan lain)
 tarot.showReservations = function() {
   return fetch(tarot.sheetBestURL)
     .then(response => {
@@ -612,13 +611,15 @@ tarot.showReservations = function() {
         } else {
           tgl = tgl.trim();
         }
-        // Konversi JamMulai
+        // Konversi JamMulai dan JamSelesai menggunakan fungsi formatTime
         var displayTime = tarot.formatTime(item.JamMulai);
+        var displayEndTime = tarot.formatTime(item.JamSelesai);
+        
         output += '<li>' +
                   tgl + ' - ' +
                   item.Nama + ' (' + item.Kontak + ') - ' +
                   item.JenisReading + ' - ' +
-                  displayTime + ' s/d ' + item.JamSelesai +
+                  displayTime + ' s/d ' + displayEndTime +
                   '</li>';
       });
       output += '</ul>';
@@ -629,6 +630,7 @@ tarot.showReservations = function() {
       return "<p>Gagal mengambil data reservasi: " + error + "</p>";
     });
 };
+
 
 console.log("tarot.renderReservationForm:", tarot.renderReservationForm);
 console.log("tarot.handleReservation:", tarot.handleReservation);
