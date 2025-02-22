@@ -371,8 +371,11 @@ tarot.sheetBestURL = "https://api.sheetbest.com/sheets/2373948a-b4ed-47b3-a30f-9
 
 // Fungsi untuk mengonversi Excel serial date ke ISO date (YYYY-MM-DD)
 tarot.convertExcelDate = function(excelDate) {
-  return new Date((excelDate - 25569) * 86400 * 1000).toISOString().split("T")[0];
+    let convertedDate = new Date((excelDate - 25569) * 86400 * 1000);
+    console.log("Converted Date:", convertedDate.toISOString()); // Debugging
+    return convertedDate.toLocaleDateString("id-ID");
 };
+
 
 // Fungsi untuk memformat waktu dari nilai pecahan hari atau string
 tarot.formatTime = function(jm) {
@@ -408,34 +411,29 @@ tarot.formatTime = function(jm) {
   return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
 };
 
-// Fungsi untuk mendapatkan waktu reservasi yang sudah dipesan untuk tanggal tertentu
 tarot.getReservedTimes = function(date) {
   return fetch(tarot.sheetBestURL)
-    .then(response => {
-       if (!response.ok) {
-         throw new Error("Network response was not ok: " + response.statusText);
-       }
-       return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       console.log("Data dari sheet.best:", data);
-      if (!data || !Array.isArray(data)) {
-         console.error("Data tidak tersedia atau tidak berbentuk array:", data);
-         return [];
-      }
-      // Filter data berdasarkan tanggal
+
       var reserved = data.filter(function(item) {
          var tgl = item.Tanggal;
-         // Jika tanggal bukan string, asumsikan berupa angka (Excel serial) dan konversi
          if (typeof tgl !== "string") {
            tgl = tarot.convertExcelDate(tgl);
          } else {
            tgl = tgl.trim();
          }
-         return tgl === date;
+
+         // Paksa format ke YYYY-MM-DD
+         let formattedDate = new Date(tgl).toISOString().split("T")[0];
+         console.log("Comparing:", formattedDate, "vs", date);
+
+         return formattedDate === date;
       }).map(function(item) {
          return tarot.formatTime(item.JamMulai);
       });
+
       console.log("Reserved times:", reserved);
       return reserved;
     })
@@ -638,7 +636,10 @@ console.log("tarot.handleReservation:", tarot.handleReservation);
 console.log("tarot.updateReservedLog:", tarot.updateReservedLog);
 console.log("tarot.getReservedTimes:", tarot.getReservedTimes);
 console.log("tarot.populateAvailableSlots:", tarot.populateAvailableSlots);
-console.log("tarot.showReservations:", tarot.showReservations);</script><tw-passagedata pid="1" name="Start" tags="" position="625,250" size="100,100">&lt;&lt;set $date to new Date().toISOString().split(&quot;T&quot;)[0]&gt;&gt;
+console.log("tarot.showReservations:", tarot.showReservations);</script><tw-passagedata pid="1" name="Start" tags="" position="625,250" size="100,100">&lt;&lt;run $date = (function() {
+    var d = new Date();
+    return d.getFullYear() + &quot;-&quot; + (&quot;0&quot; + (d.getMonth() + 1)).slice(-2) + &quot;-&quot; + (&quot;0&quot; + d.getDate()).slice(-2);
+})()&gt;&gt;
 &lt;&lt;button &#39;Kontak Aimee&#39; &gt;&gt;
 	&lt;&lt;toggleclass &quot;#ui-bar&quot; &quot;hidden&quot;&gt;&gt;
 	&lt;&lt;if $(&quot;#ui-bar&quot;).hasClass(&quot;hidden&quot;)&gt;&gt;
