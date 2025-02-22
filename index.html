@@ -577,7 +577,7 @@ tarot.handleReservation = function(date) {
         alert("Reservasi berhasil disimpan!");
         localStorage.setItem("clientContact", contact);
         if(typeof Engine !== "undefined" && Engine.play) {
-          Engine.play("ReservasiList");
+          alert("Kakak sudah sukses reservasi, boleh hubungi Aimee untuk konfirmasi lebih lanjut.");
         }
     })
     .catch(error => {
@@ -648,16 +648,7 @@ console.log("tarot.showReservations:", tarot.showReservations);</script><tw-pass
 &lt;&lt;/button&gt;&gt;
 &lt;div class=&quot;reservation-date&quot;&gt;&lt;h1&gt;Reservasi Tanggal: &lt;&lt;print $date&gt;&gt;&lt;/h1&gt;&lt;/div&gt;
   &lt;&lt;print tarot.renderReservationForm($date)&gt;&gt;
-&lt;div id=&quot;reserved-log&quot;&gt;&lt;/div&gt;
-[[Lihat Daftar Reservasi-&gt;ReservasiList]]
-</tw-passagedata><tw-passagedata pid="2" name="ReservasiList" tags="" position="750,375" size="100,100">&lt;div id=&quot;reservasiList&quot;&gt;&lt;/div&gt;
-&lt;&lt;script&gt;&gt;
-  tarot.showReservations().then(function(html) {
-      document.getElementById(&quot;reservasiList&quot;).innerHTML = html;
-  });
-&lt;&lt;/script&gt;&gt;
-[[Kembali ke Form Reservasi-&gt;Start]]
-</tw-passagedata><tw-passagedata pid="3" name="StoryCaption" tags="" position="750,250" size="100,100">&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;\
+&lt;div id=&quot;reserved-log&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="2" name="StoryCaption" tags="" position="750,250" size="100,100">&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;\
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css&quot;&gt;\
 &lt;div class=&quot;storycaption&quot;&gt;
   &lt;p class=&quot;caption-text&quot;&gt;
