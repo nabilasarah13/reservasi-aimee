@@ -445,7 +445,7 @@ tarot.getReservedTimes = function(date) {
 
 // Fungsi untuk mengisi dropdown slot dengan waktu yang tersedia (tidak dipesan)
 tarot.populateAvailableSlots = function(date) {
-  var allSlots = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+  var allSlots = ["05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
   tarot.getReservedTimes(date).then(function(reservedTimes) {
       // Filter allSlots sehingga hanya menyisakan slot yang belum dipesan
       var availableSlots = allSlots.filter(function(time) {
@@ -490,7 +490,7 @@ tarot.updateReservedLog = function(date) {
 // Fungsi untuk menampilkan form reservasi dan log reservasi
 tarot.renderReservationForm = function(date) {
   var html = '<div>' +
-    '<p class="info-box"><i class="fas fa-info-circle"></i> <em>Untuk pembacaan dengan 3 kartu atau lebih, disarankan memilih reservasi 2 jam agar sesi lebih nyaman dan mendalam.</em> <i class="fas fa-info-circle"></i></p>' +
+    '<p class="info-box"><i class="fas fa-info-circle"></i> <em>Jam kerja selama Ramadhan, start 5 pagi end 10 malam</em> <i class="fas fa-info-circle"></i></p>' +
     
     // Input Nama dengan floating label
     '<div class="input-container">' +
